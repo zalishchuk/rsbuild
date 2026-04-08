@@ -49,7 +49,7 @@ exports[`plugin-solid > should allow to configure solid preset options 1`] = `
                 "decorators": true,
               },
               "transform": {
-                "decoratorVersion": "2022-03",
+                "decoratorVersion": "2023-11",
                 "legacyDecorator": false,
               },
             },
@@ -71,7 +71,7 @@ exports[`plugin-solid > should allow to configure solid preset options 1`] = `
               [
                 "<PNPM_INNER>/@babel/plugin-proposal-decorators/lib/index.js",
                 {
-                  "version": "2022-03",
+                  "version": "2023-11",
                 },
               ],
               [
@@ -145,7 +145,7 @@ exports[`plugin-solid > should apply solid preset correctly 1`] = `
                 "decorators": true,
               },
               "transform": {
-                "decoratorVersion": "2022-03",
+                "decoratorVersion": "2023-11",
                 "legacyDecorator": false,
               },
             },
@@ -167,7 +167,7 @@ exports[`plugin-solid > should apply solid preset correctly 1`] = `
               [
                 "<PNPM_INNER>/@babel/plugin-proposal-decorators/lib/index.js",
                 {
-                  "version": "2022-03",
+                  "version": "2023-11",
                 },
               ],
               [

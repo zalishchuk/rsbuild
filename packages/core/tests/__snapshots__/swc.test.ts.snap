@@ -98,7 +98,7 @@ exports[`plugin-swc > should allow using \`tools.swc\` to configure swc-loader o
                   "decorators": true,
                 },
                 "transform": {
-                  "decoratorVersion": "2022-03",
+                  "decoratorVersion": "2023-11",
                   "legacyDecorator": false,
                 },
               },
@@ -251,7 +251,7 @@ exports[`plugin-swc > should apply environment config correctly 1`] = `
                   "decorators": true,
                 },
                 "transform": {
-                  "decoratorVersion": "2022-03",
+                  "decoratorVersion": "2023-11",
                   "legacyDecorator": false,
                 },
               },
@@ -326,7 +326,7 @@ exports[`plugin-swc > should apply environment config correctly 2`] = `
                   "decorators": true,
                 },
                 "transform": {
-                  "decoratorVersion": "2022-03",
+                  "decoratorVersion": "2023-11",
                   "legacyDecorator": false,
                 },
               },
@@ -399,7 +399,7 @@ exports[`plugin-swc > should apply overrideBrowserslist 1`] = `
                     "decorators": true,
                   },
                   "transform": {
-                    "decoratorVersion": "2022-03",
+                    "decoratorVersion": "2023-11",
                     "legacyDecorator": false,
                   },
                 },
@@ -471,7 +471,7 @@ exports[`plugin-swc > should apply pluginImport 1`] = `
                     "decorators": true,
                   },
                   "transform": {
-                    "decoratorVersion": "2022-03",
+                    "decoratorVersion": "2023-11",
                     "legacyDecorator": false,
                   },
                 },
@@ -548,7 +548,7 @@ exports[`plugin-swc > should apply pluginImport correctly with ConfigChain 1`] =
                     "decorators": true,
                   },
                   "transform": {
-                    "decoratorVersion": "2022-03",
+                    "decoratorVersion": "2023-11",
                     "legacyDecorator": false,
                   },
                 },
@@ -628,7 +628,7 @@ exports[`plugin-swc > should disable pluginImport when it returns undefined 1`] 
                     "decorators": true,
                   },
                   "transform": {
-                    "decoratorVersion": "2022-03",
+                    "decoratorVersion": "2023-11",
                     "legacyDecorator": false,
                   },
                 },
@@ -697,7 +697,7 @@ exports[`plugin-swc > should disable preset-env for non-web targets 1`] = `
                     "decorators": true,
                   },
                   "transform": {
-                    "decoratorVersion": "2022-03",
+                    "decoratorVersion": "2023-11",
                     "legacyDecorator": false,
                   },
                 },
@@ -769,7 +769,7 @@ exports[`plugin-swc > should disable preset-env mode 1`] = `
                     "decorators": true,
                   },
                   "transform": {
-                    "decoratorVersion": "2022-03",
+                    "decoratorVersion": "2023-11",
                     "legacyDecorator": false,
                   },
                 },
@@ -848,7 +848,7 @@ exports[`plugin-swc > should enable preset-env in entry mode 1`] = `
                     "decorators": true,
                   },
                   "transform": {
-                    "decoratorVersion": "2022-03",
+                    "decoratorVersion": "2023-11",
                     "legacyDecorator": false,
                   },
                 },
@@ -928,7 +928,7 @@ exports[`plugin-swc > should enable preset-env in usage mode 1`] = `
                     "decorators": true,
                   },
                   "transform": {
-                    "decoratorVersion": "2022-03",
+                    "decoratorVersion": "2023-11",
                     "legacyDecorator": false,
                   },
                 },
@@ -1007,7 +1007,7 @@ exports[`plugin-swc > should use the correct core-js version 1`] = `
                     "decorators": true,
                   },
                   "transform": {
-                    "decoratorVersion": "2022-03",
+                    "decoratorVersion": "2023-11",
                     "legacyDecorator": false,
                   },
                 },
@@ -1076,7 +1076,7 @@ exports[`plugin-swc > should use the correct core-js version 2`] = `
                     "decorators": true,
                   },
                   "transform": {
-                    "decoratorVersion": "2022-03",
+                    "decoratorVersion": "2023-11",
                     "legacyDecorator": false,
                   },
                 },

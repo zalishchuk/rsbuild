@@ -52,7 +52,7 @@ exports[`svgr > configure SVGR options 1`] = `
                 "decorators": true,
               },
               "transform": {
-                "decoratorVersion": "2022-03",
+                "decoratorVersion": "2023-11",
                 "legacyDecorator": false,
                 "react": {
                   "development": true,
@@ -257,7 +257,7 @@ exports[`svgr > exportType default / mixedImport false 1`] = `
                 "decorators": true,
               },
               "transform": {
-                "decoratorVersion": "2022-03",
+                "decoratorVersion": "2023-11",
                 "legacyDecorator": false,
                 "react": {
                   "development": true,
@@ -327,7 +327,7 @@ exports[`svgr > exportType default / mixedImport false 1`] = `
                 "decorators": true,
               },
               "transform": {
-                "decoratorVersion": "2022-03",
+                "decoratorVersion": "2023-11",
                 "legacyDecorator": false,
                 "react": {
                   "development": true,
@@ -601,7 +601,7 @@ exports[`svgr > exportType default / mixedImport true 1`] = `
                 "decorators": true,
               },
               "transform": {
-                "decoratorVersion": "2022-03",
+                "decoratorVersion": "2023-11",
                 "legacyDecorator": false,
                 "react": {
                   "development": true,
@@ -671,7 +671,7 @@ exports[`svgr > exportType default / mixedImport true 1`] = `
                 "decorators": true,
               },
               "transform": {
-                "decoratorVersion": "2022-03",
+                "decoratorVersion": "2023-11",
                 "legacyDecorator": false,
                 "react": {
                   "development": true,
@@ -945,7 +945,7 @@ exports[`svgr > exportType named / mixedImport false 1`] = `
                 "decorators": true,
               },
               "transform": {
-                "decoratorVersion": "2022-03",
+                "decoratorVersion": "2023-11",
                 "legacyDecorator": false,
                 "react": {
                   "development": true,
@@ -1015,7 +1015,7 @@ exports[`svgr > exportType named / mixedImport false 1`] = `
                 "decorators": true,
               },
               "transform": {
-                "decoratorVersion": "2022-03",
+                "decoratorVersion": "2023-11",
                 "legacyDecorator": false,
                 "react": {
                   "development": true,
@@ -1289,7 +1289,7 @@ exports[`svgr > exportType named / mixedImport true 1`] = `
                 "decorators": true,
               },
               "transform": {
-                "decoratorVersion": "2022-03",
+                "decoratorVersion": "2023-11",
                 "legacyDecorator": false,
                 "react": {
                   "development": true,
@@ -1359,7 +1359,7 @@ exports[`svgr > exportType named / mixedImport true 1`] = `
                 "decorators": true,
               },
               "transform": {
-                "decoratorVersion": "2022-03",
+                "decoratorVersion": "2023-11",
                 "legacyDecorator": false,
                 "react": {
                   "development": true,

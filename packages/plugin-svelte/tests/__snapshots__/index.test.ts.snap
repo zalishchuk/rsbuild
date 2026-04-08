@@ -60,7 +60,7 @@ exports[`plugin-svelte > should add rule for \`.svelte.js\` and \`.svelte.ts\` a
                   "decorators": true,
                 },
                 "transform": {
-                  "decoratorVersion": "2022-03",
+                  "decoratorVersion": "2023-11",
                   "legacyDecorator": false,
                 },
               },
@@ -119,7 +119,7 @@ exports[`plugin-svelte > should add rule for \`.svelte.js\` and \`.svelte.ts\` a
               "decorators": true,
             },
             "transform": {
-              "decoratorVersion": "2022-03",
+              "decoratorVersion": "2023-11",
               "legacyDecorator": false,
             },
           },
@@ -184,7 +184,7 @@ exports[`plugin-svelte > should add rule for \`.svelte.js\` and \`.svelte.ts\` a
                   "decorators": true,
                 },
                 "transform": {
-                  "decoratorVersion": "2022-03",
+                  "decoratorVersion": "2023-11",
                   "legacyDecorator": false,
                 },
               },
@@ -243,7 +243,7 @@ exports[`plugin-svelte > should add rule for \`.svelte.js\` and \`.svelte.ts\` a
               "decorators": true,
             },
             "transform": {
-              "decoratorVersion": "2022-03",
+              "decoratorVersion": "2023-11",
               "legacyDecorator": false,
             },
           },
@@ -289,7 +289,7 @@ exports[`plugin-svelte > should add svelte loader and resolve config properly 1`
               "decorators": true,
             },
             "transform": {
-              "decoratorVersion": "2022-03",
+              "decoratorVersion": "2023-11",
               "legacyDecorator": false,
             },
           },
@@ -492,7 +492,7 @@ exports[`plugin-svelte > should override default svelte-loader options throw opt
               "decorators": true,
             },
             "transform": {
-              "decoratorVersion": "2022-03",
+              "decoratorVersion": "2023-11",
               "legacyDecorator": false,
             },
           },
@@ -549,7 +549,7 @@ exports[`plugin-svelte > should set dev and hotReload to false in production mod
               "decorators": true,
             },
             "transform": {
-              "decoratorVersion": "2022-03",
+              "decoratorVersion": "2023-11",
               "legacyDecorator": false,
             },
           },
@@ -610,7 +610,7 @@ exports[`plugin-svelte > should support pass custom preprocess options 1`] = `
               "decorators": true,
             },
             "transform": {
-              "decoratorVersion": "2022-03",
+              "decoratorVersion": "2023-11",
               "legacyDecorator": false,
             },
           },
@@ -671,7 +671,7 @@ exports[`plugin-svelte > should turn off HMR by hand correctly 1`] = `
               "decorators": true,
             },
             "transform": {
-              "decoratorVersion": "2022-03",
+              "decoratorVersion": "2023-11",
               "legacyDecorator": false,
             },
           },
