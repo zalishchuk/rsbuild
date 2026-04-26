@@ -1105,7 +1105,10 @@ export type SourceMapExtractOptions = SourceMapExtractTarget & {
   js?: boolean | SourceMapExtractTarget;
 };
 
-export type SourceMapExtract = boolean | SourceMapExtractOptions;
+export type SourceMapExtract =
+  | boolean
+  | SourceMapExtractType
+  | SourceMapExtractOptions;
 
 export type SourceMap = {
   /**

@@ -16,6 +16,7 @@ type SourceMap =
       css?: boolean;
       extract?:
         | boolean
+        | SourceMapExtractType
         | {
             type?: SourceMapExtractType;
             test?: Rspack.RuleSetCondition;
@@ -174,16 +175,14 @@ export default {
 
 `extract: true` 等价于 `extract: { type: 'js' }`。
 
-使用 `type` 选择需要匹配的文件类型：
+使用字符串简写或 `type` 字段选择需要匹配的文件类型：
 
 ```ts title="rsbuild.config.ts"
 export default {
   output: {
     sourceMap: {
       js: 'source-map',
-      extract: {
-        type: 'all',
-      },
+      extract: 'all',
     },
   },
 };

@@ -16,6 +16,7 @@ type SourceMap =
       css?: boolean;
       extract?:
         | boolean
+        | SourceMapExtractType
         | {
             type?: SourceMapExtractType;
             test?: Rspack.RuleSetCondition;
@@ -174,16 +175,14 @@ export default {
 
 `extract: true` is equivalent to `extract: { type: 'js' }`.
 
-Use `type` to choose which files to match:
+Use a string shorthand or the `type` field to choose which files to match:
 
 ```ts title="rsbuild.config.ts"
 export default {
   output: {
     sourceMap: {
       js: 'source-map',
-      extract: {
-        type: 'all',
-      },
+      extract: 'all',
     },
   },
 };

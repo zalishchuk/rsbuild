@@ -97,6 +97,9 @@ export const pluginSourceMap = (): RsbuildPlugin => ({
 
       if (typeof sourceMap !== 'object' || !sourceMap.extract) return false;
       if (sourceMap.extract === true) return normalizeExtractOptions();
+      if (typeof sourceMap.extract === 'string') {
+        return normalizeExtractOptions({ type: sourceMap.extract });
+      }
       return normalizeExtractOptions(sourceMap.extract);
     };
 

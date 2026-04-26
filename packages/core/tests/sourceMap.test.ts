@@ -85,6 +85,24 @@ describe('plugin-source-map', () => {
     expect(rules).toHaveLength(1);
   });
 
+  it('should add JavaScript extract rule when output.sourceMap.extract is js string', async () => {
+    const rules = await getExtractRules({
+      output: {
+        sourceMap: {
+          extract: 'js',
+        },
+      },
+    });
+
+    expect(rules).toContainEqual(
+      expect.objectContaining({
+        extractSourceMap: true,
+        test: JS_REGEX,
+      }),
+    );
+    expect(rules).toHaveLength(1);
+  });
+
   it('should add JavaScript extract rule when output.sourceMap.extract.type is js', async () => {
     const rules = await getExtractRules({
       output: {
@@ -123,6 +141,24 @@ describe('plugin-source-map', () => {
     expect(rules).toHaveLength(1);
   });
 
+  it('should add CSS extract rule when output.sourceMap.extract is css string', async () => {
+    const rules = await getExtractRules({
+      output: {
+        sourceMap: {
+          extract: 'css',
+        },
+      },
+    });
+
+    expect(rules).toContainEqual(
+      expect.objectContaining({
+        extractSourceMap: true,
+        test: CSS_REGEX,
+      }),
+    );
+    expect(rules).toHaveLength(1);
+  });
+
   it('should add CSS extract rule when output.sourceMap.extract.type is css', async () => {
     const rules = await getExtractRules({
       output: {
@@ -138,6 +174,24 @@ describe('plugin-source-map', () => {
       expect.objectContaining({
         extractSourceMap: true,
         test: CSS_REGEX,
+      }),
+    );
+    expect(rules).toHaveLength(1);
+  });
+
+  it('should add all extract rule when output.sourceMap.extract is all string', async () => {
+    const rules = await getExtractRules({
+      output: {
+        sourceMap: {
+          extract: 'all',
+        },
+      },
+    });
+
+    expect(rules).toContainEqual(
+      expect.objectContaining({
+        extractSourceMap: true,
+        test: [JS_REGEX, CSS_REGEX],
       }),
     );
     expect(rules).toHaveLength(1);
