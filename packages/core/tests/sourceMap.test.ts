@@ -21,11 +21,10 @@ const getExtractRules = async (
   return bundlerConfig.module?.rules?.filter(isExtractRule) || [];
 };
 
-const findRuleByTest = (rules: Rspack.RuleSetRule[], test: RegExp) =>
-  rules.find(
-    (item) =>
-      item.test instanceof RegExp && item.test.toString() === test.toString(),
-  );
+const findRuleByTest = (
+  rules: Rspack.RuleSetRule[],
+  test: Rspack.RuleSetCondition,
+) => rules.find((item) => item.test?.toString() === test.toString());
 
 describe('plugin-source-map', () => {
   it('should not add extract rules by default', async () => {
