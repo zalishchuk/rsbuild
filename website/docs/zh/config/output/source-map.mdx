@@ -7,6 +7,8 @@ description: '用于设置是否生成 source map 文件，以及生成哪一种
 - **类型：**
 
 ```ts
+type SourceMapExtractType = 'all' | 'js' | 'css';
+
 type SourceMap =
   | boolean
   | {
@@ -15,6 +17,11 @@ type SourceMap =
       extract?:
         | boolean
         | {
+            type?: SourceMapExtractType;
+            test?: Rspack.RuleSetCondition;
+            include?: Rspack.RuleSetCondition[];
+            exclude?: Rspack.RuleSetCondition[];
+            /** @deprecated 请使用 `type`、`test`、`include` 和 `exclude`。 */
             js?:
               | boolean
               | {
@@ -146,7 +153,7 @@ export default {
 
 ## 提取 source map
 
-使用 `sourceMap.extract` 可以从匹配的 JavaScript 文件中提取已有的 source map。这在第三方包已经同时产出 `.js` 和 `.js.map` 文件时会很有用。
+使用 `sourceMap.extract` 可以从匹配的文件中提取已有的 source map。这在第三方包已经同时产出构建产物和 source map 文件（例如 `.js` 和 `.js.map`）时会很有用。
 
 :::tip
 该功能基于 Rspack 的 [`module.rules[].extractSourceMap`](https://rspack.rs/zh/config/module-rules#rulesextractsourcemap) 实现，可以替代 `source-map-loader`。
@@ -165,6 +172,29 @@ export default {
 };
 ```
 
+`extract: true` 等价于 `extract: { type: 'js' }`。
+
+使用 `type` 选择需要匹配的文件类型：
+
+```ts title="rsbuild.config.ts"
+export default {
+  output: {
+    sourceMap: {
+      js: 'source-map',
+      extract: {
+        type: 'all',
+      },
+    },
+  },
+};
+```
+
+`type` 选项支持以下值：
+
+- `'js'`：从 JavaScript 文件中提取 source map，这是默认值。
+- `'css'`：从 CSS 文件中提取 source map。
+- `'all'`：从 JavaScript 和 CSS 文件中提取 source map。
+
 你也可以通过 `include` 或 `exclude` 将提取范围限制到特定文件，这有助于减少性能开销：
 
 ```ts title="rsbuild.config.ts"
@@ -172,6 +202,37 @@ export default {
   output: {
     sourceMap: {
       js: 'source-map',
+      extract: {
+        type: 'js',
+        include: [/node_modules[\\/]some-package[\\/]/],
+      },
+    },
+  },
+};
+```
+
+仅在需要自定义文件匹配规则时使用 `test`：
+
+```ts title="rsbuild.config.ts"
+export default {
+  output: {
+    sourceMap: {
+      js: 'source-map',
+      extract: {
+        test: /node_modules[\\/]some-package[\\/].*\.mjs$/,
+      },
+    },
+  },
+};
+```
+
+:::warning 已废弃的写法
+旧的 `extract.js` 写法已废弃，并会在未来的主版本中移除：
+
+```ts title="rsbuild.config.ts"
+export default {
+  output: {
+    sourceMap: {
       extract: {
         js: {
           include: [/node_modules[\\/]some-package[\\/]/],
@@ -181,6 +242,9 @@ export default {
   },
 };
 ```
+
+请改用扁平的 `type`、`test`、`include` 和 `exclude` 字段。
+:::
 
 ## 版本历史
 

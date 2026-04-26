@@ -7,6 +7,8 @@ description: 'Configures whether to generate source map files and which source m
 - **Type:**
 
 ```ts
+type SourceMapExtractType = 'all' | 'js' | 'css';
+
 type SourceMap =
   | boolean
   | {
@@ -15,6 +17,11 @@ type SourceMap =
       extract?:
         | boolean
         | {
+            type?: SourceMapExtractType;
+            test?: Rspack.RuleSetCondition;
+            include?: Rspack.RuleSetCondition[];
+            exclude?: Rspack.RuleSetCondition[];
+            /** @deprecated Use `type`, `test`, `include`, and `exclude` instead. */
             js?:
               | boolean
               | {
@@ -146,7 +153,7 @@ export default {
 
 ## Extract source map
 
-Use `sourceMap.extract` to extract existing source maps from matched JavaScript files. This is useful when a third-party package already ships both `.js` and `.js.map` files.
+Use `sourceMap.extract` to extract existing source maps from matched files. This is useful when a third-party package already ships both output files and source map files, such as `.js` and `.js.map`.
 
 :::tip
 This option is implemented based on Rspack's [`module.rules[].extractSourceMap`](https://rspack.rs/config/module-rules#rulesextractsourcemap) and can replace `source-map-loader`.
@@ -165,6 +172,29 @@ export default {
 };
 ```
 
+`extract: true` is equivalent to `extract: { type: 'js' }`.
+
+Use `type` to choose which files to match:
+
+```ts title="rsbuild.config.ts"
+export default {
+  output: {
+    sourceMap: {
+      js: 'source-map',
+      extract: {
+        type: 'all',
+      },
+    },
+  },
+};
+```
+
+The `type` option supports the following values:
+
+- `'js'`: extract source maps from JavaScript files. This is the default value.
+- `'css'`: extract source maps from CSS files.
+- `'all'`: extract source maps from JavaScript and CSS files.
+
 Use `include` or `exclude` to limit extraction to specific files, which can help reduce performance overhead:
 
 ```ts title="rsbuild.config.ts"
@@ -172,6 +202,37 @@ export default {
   output: {
     sourceMap: {
       js: 'source-map',
+      extract: {
+        type: 'js',
+        include: [/node_modules[\\/]some-package[\\/]/],
+      },
+    },
+  },
+};
+```
+
+Use `test` only when you need a custom file matcher:
+
+```ts title="rsbuild.config.ts"
+export default {
+  output: {
+    sourceMap: {
+      js: 'source-map',
+      extract: {
+        test: /node_modules[\\/]some-package[\\/].*\.mjs$/,
+      },
+    },
+  },
+};
+```
+
+:::warning Deprecated syntax
+The old `extract.js` syntax is deprecated and will be removed in a future major version:
+
+```ts title="rsbuild.config.ts"
+export default {
+  output: {
+    sourceMap: {
       extract: {
         js: {
           include: [/node_modules[\\/]some-package[\\/]/],
@@ -181,6 +242,9 @@ export default {
   },
 };
 ```
+
+Use flat `type`, `test`, `include`, and `exclude` fields instead.
+:::
 
 ## Version history
 

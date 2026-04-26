@@ -1074,36 +1074,38 @@ export type NormalizedDataUriLimit = Required<DataUriLimit>;
 
 export type Polyfill = 'usage' | 'entry' | 'off';
 
+export type SourceMapExtractType = 'all' | 'js' | 'css';
+
 export type SourceMapExtractTarget = {
   /**
-   * Include matched JavaScript files whose existing source maps should be
-   * extracted.
+   * Include matched files whose existing source maps should be extracted.
    */
   include?: RuleSetCondition[];
   /**
-   * Exclude matched JavaScript files whose existing source maps should not be
-   * extracted.
+   * Exclude matched files whose existing source maps should not be extracted.
    */
   exclude?: RuleSetCondition[];
 };
 
-export type SourceMapExtract =
-  | boolean
-  | {
-      /**
-       * Whether to extract existing source maps from matching JavaScript files.
-       * This is useful when a third-party package already ships both `.js` and
-       * `.js.map` files.
-       *
-       * `true` means extract from all JavaScript files. You can also use `include`
-       * or `exclude` to limit extraction to specific files.
-       *
-       * This option is implemented based on Rspack's
-       * `module.rules[].extractSourceMap` and can replace `source-map-loader`.
-       * @default false
-       */
-      js?: boolean | SourceMapExtractTarget;
-    };
+export type SourceMapExtractOptions = SourceMapExtractTarget & {
+  /**
+   * The type of files whose existing source maps should be extracted.
+   * @default 'js'
+   */
+  type?: SourceMapExtractType;
+  /**
+   * Custom rule condition for matching files whose existing source maps should
+   * be extracted.
+   */
+  test?: RuleSetCondition;
+  /**
+   * Whether to extract existing source maps from matching JavaScript files.
+   * @deprecated Use the flat `type`, `test`, `include`, and `exclude` fields instead.
+   */
+  js?: boolean | SourceMapExtractTarget;
+};
+
+export type SourceMapExtract = boolean | SourceMapExtractOptions;
 
 export type SourceMap = {
   /**
@@ -1118,7 +1120,8 @@ export type SourceMap = {
   css?: boolean;
   /**
    * Whether to extract existing source maps from matching input files.
-   * Currently only JavaScript files are supported.
+   * This is useful when a third-party package already ships both output files
+   * and source map files.
    * @default false
    */
   extract?: SourceMapExtract;

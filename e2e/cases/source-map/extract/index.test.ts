@@ -54,7 +54,13 @@ async function buildWithExtract(
   build: Build,
   extract:
     | boolean
-    | { js?: boolean | { include?: RegExp[]; exclude?: RegExp[] } },
+    | {
+        type?: 'all' | 'js' | 'css';
+        test?: RegExp;
+        include?: RegExp[];
+        exclude?: RegExp[];
+        js?: boolean | { include?: RegExp[]; exclude?: RegExp[] };
+      },
 ) {
   setupMappedPackage();
 
@@ -75,7 +81,7 @@ async function buildWithExtract(
 test('should preserve JavaScript source maps from matched files', async ({
   build,
 }) => {
-  const rsbuild = await buildWithExtract(build, { js: true });
+  const rsbuild = await buildWithExtract(build, { type: 'js' });
   const files = rsbuild.getDistFiles({ sourceMaps: true });
 
   const outputCode = getFileContent(files, 'index.js');
