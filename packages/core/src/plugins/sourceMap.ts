@@ -61,6 +61,9 @@ export const pluginSourceMap = (): RsbuildPlugin => ({
       );
 
       // TODO: remove legacy `extract.js` support in the next major release.
+      // Keep `extract.js: false` as an explicit opt-out for merged configs.
+      if (extract.js === false) return false;
+
       // Preserve the deprecated `extract.js` shape when it is used by itself.
       if (hasLegacyJs && !hasFlatFields) {
         const legacyJs = normalizeExtractTarget(extract.js);

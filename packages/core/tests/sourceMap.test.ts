@@ -66,6 +66,21 @@ describe('plugin-source-map', () => {
     expect(rules).toHaveLength(0);
   });
 
+  it('should not add extract rules when deprecated output.sourceMap.extract.js is false with flat fields', async () => {
+    const rules = await getExtractRules({
+      output: {
+        sourceMap: {
+          extract: {
+            js: false,
+            include: [/foo/],
+          },
+        },
+      },
+    });
+
+    expect(rules).toHaveLength(0);
+  });
+
   it('should add JavaScript extract rule when output.sourceMap.extract is true', async () => {
     const rules = await getExtractRules({
       output: {
