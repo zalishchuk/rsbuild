@@ -7,8 +7,6 @@ description: 'Configures whether to generate source map files and which source m
 - **Type:**
 
 ```ts
-type SourceMapExtractType = 'all' | 'js' | 'css';
-
 type SourceMap =
   | boolean
   | {
@@ -16,13 +14,12 @@ type SourceMap =
       css?: boolean;
       extract?:
         | boolean
-        | SourceMapExtractType
         | {
-            type?: SourceMapExtractType;
+            /** @default /\.(?:js|mjs|cjs|jsx)$/ */
             test?: Rspack.RuleSetCondition;
             include?: Rspack.RuleSetCondition[];
             exclude?: Rspack.RuleSetCondition[];
-            /** @deprecated Use `type`, `test`, `include`, and `exclude` instead. */
+            /** @deprecated Use `test`, `include`, and `exclude` instead. */
             js?:
               | boolean
               | {
@@ -160,6 +157,10 @@ Use `sourceMap.extract` to extract existing source maps from matched files. This
 This option is implemented based on Rspack's [`module.rules[].extractSourceMap`](https://rspack.rs/config/module-rules#rulesextractsourcemap) and can replace `source-map-loader`.
 :::
 
+:::note
+CSS source maps are handled by the CSS build pipeline when `output.sourceMap.css` is enabled. In most cases, you do not need `sourceMap.extract` to preserve existing CSS source maps.
+:::
+
 To enable extraction for all JavaScript files:
 
 ```ts title="rsbuild.config.ts"
@@ -173,26 +174,7 @@ export default {
 };
 ```
 
-`extract: true` is equivalent to `extract: { type: 'js' }`.
-
-Use a string shorthand or the `type` field to choose which files to match:
-
-```ts title="rsbuild.config.ts"
-export default {
-  output: {
-    sourceMap: {
-      js: 'source-map',
-      extract: 'all',
-    },
-  },
-};
-```
-
-The `type` option supports the following values:
-
-- `'js'`: extract source maps from JavaScript files. This is the default value.
-- `'css'`: extract source maps from CSS files.
-- `'all'`: extract source maps from JavaScript and CSS files.
+When `extract` is enabled, Rsbuild extracts existing source maps from JavaScript files by default.
 
 Use `include` or `exclude` to limit extraction to specific files, which can help reduce performance overhead:
 
@@ -202,7 +184,6 @@ export default {
     sourceMap: {
       js: 'source-map',
       extract: {
-        type: 'js',
         include: [/node_modules[\\/]some-package[\\/]/],
       },
     },
@@ -242,7 +223,7 @@ export default {
 };
 ```
 
-Use flat `type`, `test`, `include`, and `exclude` fields instead.
+Use flat `test`, `include`, and `exclude` fields instead.
 :::
 
 ## Version history

@@ -7,8 +7,6 @@ description: '用于设置是否生成 source map 文件，以及生成哪一种
 - **类型：**
 
 ```ts
-type SourceMapExtractType = 'all' | 'js' | 'css';
-
 type SourceMap =
   | boolean
   | {
@@ -16,13 +14,12 @@ type SourceMap =
       css?: boolean;
       extract?:
         | boolean
-        | SourceMapExtractType
         | {
-            type?: SourceMapExtractType;
+            /** @default /\.(?:js|mjs|cjs|jsx)$/ */
             test?: Rspack.RuleSetCondition;
             include?: Rspack.RuleSetCondition[];
             exclude?: Rspack.RuleSetCondition[];
-            /** @deprecated 请使用 `type`、`test`、`include` 和 `exclude`。 */
+            /** @deprecated 请使用 `test`、`include` 和 `exclude`。 */
             js?:
               | boolean
               | {
@@ -160,6 +157,10 @@ export default {
 该功能基于 Rspack 的 [`module.rules[].extractSourceMap`](https://rspack.rs/zh/config/module-rules#rulesextractsourcemap) 实现，可以替代 `source-map-loader`。
 :::
 
+:::note
+启用 `output.sourceMap.css` 后，CSS source map 会由 CSS 构建链路处理。大多数情况下，你不需要使用 `sourceMap.extract` 来保留已有的 CSS source map。
+:::
+
 要为所有 JavaScript 文件开启提取，可以这样配置：
 
 ```ts title="rsbuild.config.ts"
@@ -173,26 +174,7 @@ export default {
 };
 ```
 
-`extract: true` 等价于 `extract: { type: 'js' }`。
-
-使用字符串简写或 `type` 字段选择需要匹配的文件类型：
-
-```ts title="rsbuild.config.ts"
-export default {
-  output: {
-    sourceMap: {
-      js: 'source-map',
-      extract: 'all',
-    },
-  },
-};
-```
-
-`type` 选项支持以下值：
-
-- `'js'`：从 JavaScript 文件中提取 source map，这是默认值。
-- `'css'`：从 CSS 文件中提取 source map。
-- `'all'`：从 JavaScript 和 CSS 文件中提取 source map。
+启用 `extract` 后，默认情况下 Rsbuild 会从 JavaScript 文件中提取已有的 source map。
 
 你也可以通过 `include` 或 `exclude` 将提取范围限制到特定文件，这有助于减少性能开销：
 
@@ -202,7 +184,6 @@ export default {
     sourceMap: {
       js: 'source-map',
       extract: {
-        type: 'js',
         include: [/node_modules[\\/]some-package[\\/]/],
       },
     },
@@ -242,7 +223,7 @@ export default {
 };
 ```
 
-请改用扁平的 `type`、`test`、`include` 和 `exclude` 字段。
+请改用扁平的 `test`、`include` 和 `exclude` 字段。
 :::
 
 ## 版本历史

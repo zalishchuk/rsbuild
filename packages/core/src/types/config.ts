@@ -1074,8 +1074,6 @@ export type NormalizedDataUriLimit = Required<DataUriLimit>;
 
 export type Polyfill = 'usage' | 'entry' | 'off';
 
-export type SourceMapExtractType = 'all' | 'js' | 'css';
-
 export type SourceMapExtractTarget = {
   /**
    * Include matched files whose existing source maps should be extracted.
@@ -1089,26 +1087,19 @@ export type SourceMapExtractTarget = {
 
 export type SourceMapExtractOptions = SourceMapExtractTarget & {
   /**
-   * The type of files whose existing source maps should be extracted.
-   * @default 'js'
-   */
-  type?: SourceMapExtractType;
-  /**
    * Custom rule condition for matching files whose existing source maps should
    * be extracted.
+   * @default /\.(?:js|mjs|cjs|jsx)$/
    */
   test?: RuleSetCondition;
   /**
    * Whether to extract existing source maps from matching JavaScript files.
-   * @deprecated Use the flat `type`, `test`, `include`, and `exclude` fields instead.
+   * @deprecated Use the flat `test`, `include`, and `exclude` fields instead.
    */
   js?: boolean | SourceMapExtractTarget;
 };
 
-export type SourceMapExtract =
-  | boolean
-  | SourceMapExtractType
-  | SourceMapExtractOptions;
+export type SourceMapExtract = boolean | SourceMapExtractOptions;
 
 export type SourceMap = {
   /**

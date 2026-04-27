@@ -1,4 +1,4 @@
-import { CSS_REGEX, JS_REGEX } from '../constants';
+import { JS_REGEX } from '../constants';
 import { normalizeRuleConditionPath, toPosixPath } from '../helpers/path';
 import type {
   NormalizedEnvironmentConfig,
@@ -7,7 +7,6 @@ import type {
   RspackChain,
   SourceMapExtractOptions,
   SourceMapExtractTarget,
-  SourceMapExtractType,
 } from '../types';
 
 type ExtractRuleConfig = {
@@ -30,12 +29,6 @@ const getDevtool = (config: NormalizedEnvironmentConfig): Rspack.DevTool => {
     return isProd ? false : 'cheap-module-source-map';
   }
   return sourceMap.js;
-};
-
-const getExtractTypeTest = (type: SourceMapExtractType) => {
-  if (type === 'all') return [JS_REGEX, CSS_REGEX];
-  if (type === 'css') return CSS_REGEX;
-  return JS_REGEX;
 };
 
 export const pluginSourceMap = (): RsbuildPlugin => ({
@@ -63,9 +56,9 @@ export const pluginSourceMap = (): RsbuildPlugin => ({
       extract: SourceMapExtractOptions = {},
     ): ExtractRuleConfig | false => {
       const hasLegacyJs = 'js' in extract;
-      const hasFlatFields = (
-        ['type', 'test', 'include', 'exclude'] as const
-      ).some((key) => extract[key] !== undefined);
+      const hasFlatFields = (['test', 'include', 'exclude'] as const).some(
+        (key) => extract[key] !== undefined,
+      );
 
       // TODO: remove legacy `extract.js` support in the next major release.
       // Preserve the deprecated `extract.js` shape when it is used by itself.
@@ -80,11 +73,11 @@ export const pluginSourceMap = (): RsbuildPlugin => ({
         };
       }
 
-      const { type = 'js', test, include, exclude } = extract;
+      const { test, include, exclude } = extract;
 
       return {
         name: 'source-map-extract',
-        test: test ?? getExtractTypeTest(type),
+        test: test ?? JS_REGEX,
         target: {
           include: include?.map(normalizeRuleConditionPath),
           exclude: exclude?.map(normalizeRuleConditionPath),
@@ -97,9 +90,7 @@ export const pluginSourceMap = (): RsbuildPlugin => ({
 
       if (typeof sourceMap !== 'object' || !sourceMap.extract) return false;
       if (sourceMap.extract === true) return normalizeExtractOptions();
-      if (typeof sourceMap.extract === 'string') {
-        return normalizeExtractOptions({ type: sourceMap.extract });
-      }
+      if (typeof sourceMap.extract !== 'object') return false;
       return normalizeExtractOptions(sourceMap.extract);
     };
 

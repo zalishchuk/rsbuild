@@ -6,6 +6,7 @@ import {
   mapSourceMapPositions,
   test,
 } from '@e2e/helper';
+import type { SourceMapExtract } from '@rsbuild/core';
 import fse from 'fs-extra';
 
 const setupMappedPackage = () => {
@@ -50,18 +51,7 @@ const getGeneratedPosition = (code: string, search: string) => {
   };
 };
 
-async function buildWithExtract(
-  build: Build,
-  extract:
-    | boolean
-    | {
-        type?: 'all' | 'js' | 'css';
-        test?: RegExp;
-        include?: RegExp[];
-        exclude?: RegExp[];
-        js?: boolean | { include?: RegExp[]; exclude?: RegExp[] };
-      },
-) {
+async function buildWithExtract(build: Build, extract: SourceMapExtract) {
   setupMappedPackage();
 
   return build({
@@ -78,37 +68,33 @@ async function buildWithExtract(
   });
 }
 
-test('should preserve JavaScript source maps from matched files', async ({
-  build,
-}) => {
-  const rsbuild = await buildWithExtract(build, { type: 'js' });
+const expectMappedPackageSource = async (
+  build: Build,
+  extract: SourceMapExtract,
+) => {
+  const rsbuild = await buildWithExtract(build, extract);
   const files = rsbuild.getDistFiles({ sourceMaps: true });
 
   const outputCode = getFileContent(files, 'index.js');
   const sourceMap = getFileContent(files, 'index.js.map');
-  const generatedPosition = getGeneratedPosition(outputCode, 'from-package-ts');
 
   const [originalPosition] = await mapSourceMapPositions(sourceMap, [
-    generatedPosition,
+    getGeneratedPosition(outputCode, 'from-package-ts'),
   ]);
 
   expect(originalPosition.source).toContain(
     'node_modules/mapped-package/index.ts',
   );
+};
+
+test('should preserve JavaScript source maps with default extract test', async ({
+  build,
+}) => {
+  await expectMappedPackageSource(build, {});
 });
 
 test('should preserve JavaScript source maps when extract is true', async ({
   build,
 }) => {
-  const rsbuild = await buildWithExtract(build, true);
-  const files = rsbuild.getDistFiles({ sourceMaps: true });
-
-  const jsOutput = getFileContent(files, 'index.js');
-  const jsSourceMap = getFileContent(files, 'index.js.map');
-
-  const [jsPosition] = await mapSourceMapPositions(jsSourceMap, [
-    getGeneratedPosition(jsOutput, 'from-package-ts'),
-  ]);
-
-  expect(jsPosition.source).toContain('node_modules/mapped-package/index.ts');
+  await expectMappedPackageSource(build, true);
 });
