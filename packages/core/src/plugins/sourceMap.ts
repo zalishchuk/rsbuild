@@ -108,8 +108,17 @@ export const pluginSourceMap = (): RsbuildPlugin => ({
         .set('extractSourceMap', true);
 
       const { include, exclude } = target;
-      if (include) include.forEach((condition) => rule.include.add(condition));
-      if (exclude) exclude.forEach((condition) => rule.exclude.add(condition));
+      if (include) {
+        for (const condition of include) {
+          rule.include.add(condition);
+        }
+      }
+
+      if (exclude) {
+        for (const condition of exclude) {
+          rule.exclude.add(condition);
+        }
+      }
     };
 
     api.modifyBundlerChain({

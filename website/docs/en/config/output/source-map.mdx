@@ -19,13 +19,6 @@ type SourceMap =
             test?: Rspack.RuleSetCondition;
             include?: Rspack.RuleSetCondition[];
             exclude?: Rspack.RuleSetCondition[];
-            /** @deprecated Use `test`, `include`, and `exclude` instead. */
-            js?:
-              | boolean
-              | {
-                  include?: Rspack.RuleSetCondition[];
-                  exclude?: Rspack.RuleSetCondition[];
-                };
           };
     };
 ```
@@ -206,28 +199,9 @@ export default {
 };
 ```
 
-:::warning Deprecated syntax
-The old `extract.js` syntax is deprecated and will be removed in a future major version:
-
-```ts title="rsbuild.config.ts"
-export default {
-  output: {
-    sourceMap: {
-      extract: {
-        js: {
-          include: [/node_modules[\\/]some-package[\\/]/],
-        },
-      },
-    },
-  },
-};
-```
-
-Use flat `test`, `include`, and `exclude` fields instead.
-:::
-
 ## Version history
 
-| Version | Changes                          |
-| ------- | -------------------------------- |
-| v2.0.0  | Added `sourceMap.extract` option |
+| Version | Changes                                                               |
+| ------- | --------------------------------------------------------------------- |
+| v2.0.0  | Added `sourceMap.extract` option                                      |
+| v2.0.3  | Added `test`, `include`, and `exclude` options to `sourceMap.extract` |

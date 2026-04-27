@@ -19,13 +19,6 @@ type SourceMap =
             test?: Rspack.RuleSetCondition;
             include?: Rspack.RuleSetCondition[];
             exclude?: Rspack.RuleSetCondition[];
-            /** @deprecated 请使用 `test`、`include` 和 `exclude`。 */
-            js?:
-              | boolean
-              | {
-                  include?: Rspack.RuleSetCondition[];
-                  exclude?: Rspack.RuleSetCondition[];
-                };
           };
     };
 ```
@@ -206,28 +199,9 @@ export default {
 };
 ```
 
-:::warning 已废弃的写法
-旧的 `extract.js` 写法已废弃，并会在未来的主版本中移除：
-
-```ts title="rsbuild.config.ts"
-export default {
-  output: {
-    sourceMap: {
-      extract: {
-        js: {
-          include: [/node_modules[\\/]some-package[\\/]/],
-        },
-      },
-    },
-  },
-};
-```
-
-请改用扁平的 `test`、`include` 和 `exclude` 字段。
-:::
-
 ## 版本历史
 
-| 版本   | 变更内容                      |
-| ------ | ----------------------------- |
-| v2.0.0 | 新增 `sourceMap.extract` 选项 |
+| 版本   | 变更内容                                                        |
+| ------ | --------------------------------------------------------------- |
+| v2.0.0 | 新增 `sourceMap.extract` 选项                                   |
+| v2.0.3 | 为 `sourceMap.extract` 新增 `test`、`include` 和 `exclude` 选项 |
